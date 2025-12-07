@@ -6,7 +6,147 @@ msgstr ""
 
 # APP
 
+
+msgid "module.academico"
+msgstr "Académico"
+
+msgid "module.academico.description"
+msgstr "Gestión del proceso académico: asignaciones, calificaciones, horarios, asistencia y administración de cursos."
+
+msgid "module.cafeteria"
+msgstr "Cafetería"
+
+msgid "module.cafeteria.description"
+msgstr "Administración de consumos, balances, cuentas de estudiantes y operaciones del comedor escolar."
+
+msgid "module.enfermeria"
+msgstr "Enfermería"
+
+msgid "module.enfermeria.description"
+msgstr "Registro de atenciones médicas, historial de salud, control de medicamentos y reportes."
+
+msgid "module.financiero"
+msgstr "Financiero"
+
+msgid "module.financiero.description"
+msgstr "Gestión de pagos, facturación, cuentas por cobrar, reportes y matrícula."
+
+msgid "module.padres"
+msgstr "Padres"
+
+msgid "module.padres.description"
+msgstr "Portal con acceso a calificaciones, asistencia, pagos, notificaciones y comunicación con el centro educativo."
+
+
+
+
+msgid "modules.select_title"
+msgstr "Selecciona un Módulo"
+
+msgid "modules.select_subtitle"
+msgstr "Elija el módulo que desea administrar:"
+
+msgid "login.error_empty_fields"
+msgstr "Debe llenar usuario y contraseña"
+
+msgid "login.username"
+msgstr "Usuario"
+
+msgid "login.password"
+msgstr "Contraseña"
+
+msgid "login.title"
+msgstr "Inicio de Sesión"
+
+msgid "modules.access_button"
+msgstr "Acceder a"
+
+
+
 msgid "app.footer"
 msgstr "Todos los derechos reservados."
 
+msgid "menu.admisiones"
+msgstr "Admisiones"
 
+msgid "menu.solicitud_admision"
+msgstr "Solicitud de Admisión"
+
+msgid "menu.evaluacion_admisiones"
+msgstr "Evaluación de Admisiones"
+
+msgid "menu.inscripcion_estudiantes"
+msgstr "Inscripción de Estudiantes"
+
+msgid "menu.estudiantes"
+msgstr "Estudiantes"
+
+msgid "menu.expedientes"
+msgstr "Expedientes"
+
+msgid "menu.asistencias"
+msgstr "Asistencias"
+
+msgid "menu.digitacion_notas"
+msgstr "Digitación de Notas"
+
+msgid "menu.correccion_notas"
+msgstr "Corrección de Notas"
+
+msgid "menu.asignacion_aulas"
+msgstr "Asignación de Aulas"
+
+msgid "menu.configuracion"
+msgstr "Configuración"
+
+msgid "menu.administracion"
+msgstr "Administración"
+
+msgid "menu.ciclos_escolares"
+msgstr "Ciclos Escolares"
+
+msgid "menu.niveles"
+msgstr "Niveles"
+
+msgid "menu.cursos"
+msgstr "Cursos"
+
+msgid "menu.areas_tematicas"
+msgstr "Áreas Temáticas"
+
+msgid "menu.asignaturas"
+msgstr "Asignaturas"
+
+msgid "menu.formulas_parciales"
+msgstr "Fórmulas Parciales"
+
+msgid "menu.parciales"
+msgstr "Parciales"
+
+msgid "menu.capacitaciones"
+msgstr "Capacitaciones"
+
+msgid "menu.bloques_horario"
+msgstr "Bloques de Horario"
+
+msgid "menu.solicitudes"
+msgstr "Solicitudes"
+
+msgid "menu.mi_perfil"
+msgstr "Mi Perfil"
+
+msgid "common.aceptar"
+msgstr "Aceptar"
+
+msgid "common.rechazar"
+msgstr "Rechazar"
+
+msgid "common.privacidad_y_seguridad"
+msgstr "Privacidad y seguridad"
+
+
+
+
+
+msgid "error.module_unknown"
+msgstr "Módulo desconocido."

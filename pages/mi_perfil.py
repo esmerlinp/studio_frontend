@@ -1,6 +1,17 @@
 import streamlit as st
 from util import i18n
 
+# st.set_page_config(
+#     layout="wide"
+# )
+
+# with st.sidebar:
+#     st.markdown("### Filtros")
+#     if st.button("Privacy and security", icon=":material/house:"):
+#         st.switch_page("pages/learn.py")
+#     opcion = st.selectbox("Seleccione un grado", ["1ro", "2do", "3ro"])
+#     st.button("Cerrar sesión")
+
 
 st.write("**Appearance**")
 key = "main_cont"
@@ -25,8 +36,9 @@ st.markdown(
         
 
 with st.container(border=True, key=key):
-    if st.button("__Theme__", type="tertiary", help=":gray[That's theme pretty]"):
-        st.switch_page("pages/learn.py")
+    # if st.button("__Theme__", type="tertiary", help=":gray[That's theme pretty]"):
+    #     st.switch_page("pages/learn.py")
+    st.write("---")
     st.caption("Caption button")    
     if st.button("__Theme__", help=":gray[That's theme pretty]", type="primary"):
         st.switch_page("pages/learn.py")
