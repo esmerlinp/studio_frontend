@@ -1,6 +1,5 @@
 import streamlit as st
 from util import i18n
-from pages.modulos.academico import academic_pages  # Tu módulo existente
 from pages.modulos import academico, cafeteria, padres, enfermeria, financiero
 # -------------------------------------------------------
 # Configuración de la app
@@ -10,6 +9,18 @@ st.set_page_config(
     page_icon="🚀",
     layout="centered"
 )
+
+custom_styles = """ 
+    <style>
+        .block-container {
+            padding-top: 0rem;
+        }
+        div.block-container {
+            padding-top: 1rem; /* Ajusta aquí el margen superior */
+        }
+    </style>
+"""
+st.markdown(custom_styles, unsafe_allow_html=True)
 
 # ------------------------------
 # Configuración de idioma
@@ -123,7 +134,7 @@ else:
 
     # Definir listas de páginas según el módulo elegido
     if st.session_state.modulo_actual == f"{i18n._("module.academico")}":
-        pages = academic_pages()
+        pages = academico.academic_pages()
 
     elif st.session_state.modulo_actual == f"{i18n._("module.cafeteria")}":
         pages = cafeteria.get_pages()

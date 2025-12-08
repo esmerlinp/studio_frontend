@@ -5,12 +5,8 @@ from util import i18n
 #     layout="wide"
 # )
 
-# with st.sidebar:
-#     st.markdown("### Filtros")
-#     if st.button("Privacy and security", icon=":material/house:"):
-#         st.switch_page("pages/learn.py")
-#     opcion = st.selectbox("Seleccione un grado", ["1ro", "2do", "3ro"])
-#     st.button("Cerrar sesión")
+with st.sidebar:
+    st.button("Cerrar sesión", width="stretch")
 
 
 st.write("**Appearance**")
