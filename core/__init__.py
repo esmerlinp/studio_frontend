@@ -47,27 +47,28 @@ def fetch_data(
             headers=request_headers,
             timeout=timeout
         )
-
+        print(f"endpoint {endpoint}, status_code {response.status_code}")
         # --- validar respuesta JSON ---
         if not response.headers.get("Content-Type", "").startswith("application/json"):
             logging.error(f"Non-JSON response: {response.text}")
             return {"error": "Non-JSON response"}
-
+       
         # --- respuestas exitosas ---
         if response.status_code in (200, 201):
             return response.json()
         
         if response.status_code == 440: #session expirada por inactividad
+            
             st.session_state.force_login = True
             st.rerun()
             return {"error": response.json()}
 
-        # --------------------------------------------------------
+        # -----------------------------------
+        # ---------------------
         #  MANEJO DE 401 + REFRESH TOKEN
         # --------------------------------------------------------
         if response.status_code == 401:
             data = response.json()
-            
             if data.get("msg") == "Token has expired" and not retry:
                 refresh_headers = {
                     "Authorization": f"Bearer {st.session_state.refreshToken}"
@@ -75,18 +76,20 @@ def fetch_data(
                 refresh_url = f"{url_base}/refresh"
                 refresh_response = r.post(refresh_url, headers=refresh_headers)
                 if refresh_response.status_code == 200:
-                    new_data = refresh_response.json()
-                    st.session_state.accessToken = new_data["accessToken"]
+                    new_data_response = refresh_response.json()
+                    new_data = new_data_response.get('result', None)
+                    if new_data:
+                        st.session_state.accessToken = new_data["accessToken"]
 
-                    # Reintentar la llamada original una sola vez
-                    return fetch_data(
-                        endpoint, method, params, body_params,
-                        headers, timeout, is_signIn, retry=True
-                    )
+                        # Reintentar la llamada original una sola vez
+                        return fetch_data(
+                            endpoint, method, params, body_params,
+                            headers, timeout, is_signIn, retry=True
+                        )
 
                     
         # --- errores genéricos ---
-
+        logging.error(f"Error occurred: {response.json()}")
         return {"error": response.json()}
 
     except Exception as e:

@@ -1,7 +1,7 @@
 import streamlit as st
 from util import i18n
-from pages.modulos import academico, cafeteria, padres, enfermeria, financiero
-from pages import login_page, modules_page
+from app.pages.modulos import academico, cafeteria, padres, enfermeria, financiero
+from app.pages import login_page, modules_page
 from st_cookies_manager import EncryptedCookieManager
 import os
 
