@@ -24,7 +24,7 @@ backgroundColor = "#eff3f571"  # Taupe Gray
 secondaryBackgroundColor = "#eff3f5"  # Chinese Silver
 
 # Color used for almost all text.
-textColor = "#1D2226"  # Very dark gray used in LinkedIn's typography
+textColor = "#1D2226"
 
 # Color used for all links.
 linkColor = "#0077B5"  # Same as primaryColor

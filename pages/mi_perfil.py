@@ -1,6 +1,6 @@
 import streamlit as st
 from util import i18n
-from core import fetch_data
+from core import user_service
 from streamlit_avatar import avatar
 
 # st.set_page_config(
@@ -8,21 +8,28 @@ from streamlit_avatar import avatar
 # )
 
 #if not 'user' in st.session_state or not st.session_state.user:
-with st.spinner():
-    #data = fetch_data("api/users/2")
-    data = fetch_data("me")
+# with st.spinner():
+#     data = user_service.get_user_by_id(st.session_state.user['userId'])
+#     error = data.get("error", None)
+#     if error:
+#         if error['msg']:
+#             st.error(error['msg'])
+#         if error['error']:
+#             st.error(error['error'])
+#         st.stop()
+#     #data = fetch_data("me")
    
-    st.write(data)
-    st.stop()
+#     st.write(data)
+#     st.stop()
         
-    st.session_state.user = data["result"]
+#     st.session_state.user = data["result"]
 
 
 with st.sidebar:
     st.button("Cerrar sesión", width="stretch")
 
 
-st.write("**My account**")
+st.header("**My account**")
 key = "main_cont"
 # Estilos solo para el contenedor con esta key
 
@@ -49,25 +56,28 @@ with st.container(border=True, key=key):
     if st.session_state.user:
         me = st.session_state.user
         imagen = me.get('photo', None)  
+        fullname = f"{me['firstName']} {me['lastName']}"
         if not imagen:
-            imagen = "https://picsum.photos/id/237/300/300"
+            imagen = f"https://ui-avatars.com/api/?background=27414fff&color=ffffff&name={fullname}=100%bold=true"
             
         avatar(
             [
                 {
                     "url": imagen,
                     "size": 60,
-                    "title": me['firstName'],
+                    "title": fullname,
                     "caption": me['email'],
                     "key": "avatar1",
                 },
             ]
         )
-
-        st.write("---")
+with st.container(border=True,):
+    # if st.button("__Theme__", type="tertiary", help=":gray[That's theme pretty]"):
+    #     st.switch_page("pages/learn.py")
+    if st.session_state.user:
         if st.button("__Cerrar Sesión__", help=":gray[That's theme pretty]", type="primary"):
-            st.switch_page("pages/learn.py")
+            print("cerrar cession")
         # if st.button(i18n._("app.footer"), help=":gray[That's theme pretty]", type="secondary"):
         #     st.switch_page("pages/learn.py")
         
-        st.write(me)
+        #st.write(me)

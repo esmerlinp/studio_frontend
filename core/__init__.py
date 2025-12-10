@@ -21,61 +21,78 @@ HEADERS = {
 }
 
 
-def fetch_data(endpoint, method="GET", params=None, body_params=None, headers=None, timeout=1800, is_singIn=False):
-    """
-    Función genérica para realizar solicitudes HTTP.
-
-    :param endpoint: Endpoint de la API.
-    :param method: Método HTTP (GET, POST, etc.).
-    :param params: Parámetros de consulta.
-    :param body_params: Datos del cuerpo de la solicitud.
-    :param headers: Encabezados adicionales.
-    :param timeout: Tiempo de espera en segundos.
-    :return: Respuesta en formato JSON o texto.
-    """
-
+def fetch_data(
+    endpoint, 
+    method="GET", 
+    params=None, 
+    body_params=None, 
+    headers=None, 
+    timeout=1800,
+    is_signIn=False,
+    retry=False
+):
+    """Función genérica con reintento automático tras refrescar token."""
 
     try:
-        
-        HEADERS["Authorization"] = f"Bearer {st.session_state.accessToken}"
+        # Construir headers locales (no modificar HEADERS global)
+        request_headers = HEADERS.copy()
+        request_headers["Authorization"] = f"Bearer {st.session_state.accessToken}"
 
         url = f"{url_base}/{endpoint}"
-        response = r.request(method, url, params=params, json=body_params, headers=HEADERS, timeout=timeout)
 
-   
-    
+        response = r.request(
+            method, url,
+            params=params,
+            json=body_params,
+            headers=request_headers,
+            timeout=timeout
+        )
+
+        # --- validar respuesta JSON ---
         if not response.headers.get("Content-Type", "").startswith("application/json"):
             logging.error(f"Non-JSON response: {response.text}")
             return {"error": "Non-JSON response"}
-        
-        
-         
+
+        # --- respuestas exitosas ---
         if response.status_code in (200, 201):
             return response.json()
-            
+        
+        if response.status_code == 440: #session expirada por inactividad
+            st.session_state.force_login = True
+            st.rerun()
+            return {"error": response.json()}
+
+        # --------------------------------------------------------
+        #  MANEJO DE 401 + REFRESH TOKEN
+        # --------------------------------------------------------
         if response.status_code == 401:
             data = response.json()
             
-            if data.get("msg") == "Token has expired":
-                #print(data.get("msg"))
-                #return None
-                headers = {"Authorization": st.session_state.refreshToken}
-                
-                url = f"{url_base}/refresh"
-                result = r.request("POST", url, headers=headers)
-                
-                if result:
-                    data = result.json()
-                    st.session_state["accessToken"] = data['accessToken']
-                    st.session_state.update_token = True
+            if data.get("msg") == "Token has expired" and not retry:
+                refresh_headers = {
+                    "Authorization": f"Bearer {st.session_state.refreshToken}"
+                }
+                refresh_url = f"{url_base}/refresh"
+                refresh_response = r.post(refresh_url, headers=refresh_headers)
+                if refresh_response.status_code == 200:
+                    new_data = refresh_response.json()
+                    st.session_state.accessToken = new_data["accessToken"]
+
+                    # Reintentar la llamada original una sola vez
+                    return fetch_data(
+                        endpoint, method, params, body_params,
+                        headers, timeout, is_signIn, retry=True
+                    )
+
                     
-        data_error = response.json()
-        return {"error": data_error}
-        #return response.json()
-    
+        # --- errores genéricos ---
+
+        return {"error": response.json()}
+
     except Exception as e:
-        logging.error(f"Error occurred: {e}")  # Registrar el error HTTP
-        return {"error": e}
+        logging.error(f"Error occurred: {e}")
+        return {"error": str(e)}
+
 
 
 
@@ -89,7 +106,6 @@ def login(user_name:str, password:str):
     }
     
     response = fetch_data(endpoint="/login", method="POST", body_params=Credencials)
-    print(response)
     data = response.get("result", None)
     
     if data:
