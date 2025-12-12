@@ -150,3 +150,91 @@ msgstr "Privacidad y seguridad"
 
 msgid "error.module_unknown"
 msgstr "Módulo desconocido."
+
+
+msgid "form.security_settings.title"
+msgstr "Configuración de Seguridad"
+
+msgid "form.security_settings.description"
+msgstr "Configura las preferencias relacionadas con seguridad para el cliente."
+
+msgid "form.security_settings.idle_timeout"
+msgstr "Tiempo de inactividad (minutos)"
+
+msgid "form.security_settings.idle_timeout.caption"
+msgstr "Establece 0 para desactivar el cierre de sesión automático por inactividad."
+
+msgid "form.security_settings.max_login_attempts"
+msgstr "Intentos máximos de inicio de sesión"
+
+msgid "form.security_settings.max_login_attempts.caption"
+msgstr "Número de intentos fallidos antes de bloquear la cuenta."
+
+msgid "form.security_settings.password_expiration"
+msgstr "Expiración de contraseña (días)"
+
+msgid "form.security_settings.password_expiration.caption"
+msgstr "Establece 0 para desactivar la expiración de contraseñas."
+
+msgid "form.security_settings.refresh_token_expiration"
+msgstr "Expiración del token de actualización (días)"
+
+msgid "form.security_settings.refresh_token_expiration.caption"
+msgstr "Número de días antes de que expiren los tokens de actualización."
+
+msgid "form.security_settings.enforce_2fa"
+msgstr "Forzar 2FA"
+
+msgid "form.security_settings.enforce_2fa.caption"
+msgstr "Requerir autenticación de dos factores para todos los usuarios."
+
+msgid "form.localization.title"
+msgstr "Localización"
+
+msgid "form.localization.description"
+msgstr "Zona horaria, idioma y formatos de fecha."
+
+msgid "form.localization.timezone"
+msgstr "Zona horaria"
+
+msgid "form.localization.timezone.caption"
+msgstr "Usa el formato de zona horaria IANA, por ejemplo: America/New_York."
+
+msgid "form.localization.language"
+msgstr "Idioma"
+
+msgid "form.localization.language.caption"
+msgstr "Usa códigos de idioma ISO 639-1, ej.: en, es, fr."
+
+msgid "form.localization.date_format"
+msgstr "Formato de fecha"
+
+msgid "form.localization.date_format.caption"
+msgstr "Especifica el formato de fecha, ej.: MM/DD/YYYY, DD/MM/YYYY."
+
+msgid "form.modules.title"
+msgstr "Módulos"
+
+msgid "form.modules.description"
+msgstr "Habilita o deshabilita módulos del sistema."
+
+msgid "form.modules.payroll"
+msgstr "Nómina"
+
+msgid "form.modules.recruitment"
+msgstr "Reclutamiento"
+
+msgid "form.modules.attendance"
+msgstr "Asistencia"
+
+msgid "form.modules.caption"
+msgstr "Activa o desactiva la disponibilidad de módulos para este cliente."
+
+msgid "form.branding.title"
+msgstr "Branding"
+
+msgid "form.branding.company_logo_url"
+msgstr "URL del Logo de la Empresa"
+
+msgid "form.submit"
+msgstr "Guardar Cambios"

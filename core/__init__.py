@@ -75,6 +75,13 @@ def fetch_data(
                 }
                 refresh_url = f"{url_base}/refresh"
                 refresh_response = r.post(refresh_url, headers=refresh_headers)
+                
+                if refresh_response.status_code in (440, 401): #session expirada por inactividad
+                    st.session_state.force_login = True
+                    st.rerun()
+                    return {"error": refresh_response.json()}
+                
+        
                 if refresh_response.status_code == 200:
                     new_data_response = refresh_response.json()
                     new_data = new_data_response.get('result', None)

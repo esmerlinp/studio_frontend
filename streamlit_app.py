@@ -48,7 +48,6 @@ if not cookies.ready():
 if not 'user' in st.session_state:
     st.session_state.user = None
     
-
   
 if not 'update_token' in st.session_state:
     st.session_state.update_token = False
@@ -114,8 +113,8 @@ st.session_state.refreshToken = cookies.get("refreshToken", "")
 # -------------------------------------------------------
 
 
-st.write(st.session_state.is_auth)
-st.write(f"force login: {st.session_state.force_login}")
+# st.write(st.session_state.is_auth)
+# st.write(f"force login: {st.session_state.force_login}")
 
 
 # Si no está logueado → mostrar login

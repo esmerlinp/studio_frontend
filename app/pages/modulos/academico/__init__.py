@@ -28,6 +28,7 @@ def academic_pages():
         ],
         f"{i18n._("menu.configuracion")}": [
             st.Page("app/pages/mi_perfil.py", title=f"{i18n._("menu.mi_perfil")}", icon=":material/account_circle:"),
+            st.Page("app/pages/manage_account.py", title=f"{i18n._("menu.configuracion")}", icon=":material/account_circle:"),
         ]
     }
     
