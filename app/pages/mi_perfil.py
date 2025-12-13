@@ -10,7 +10,7 @@ from streamlit_avatar import avatar
 if not 'user' in st.session_state or not st.session_state.user:
     with st.spinner():
         #data = user_service.get_user_by_id(st.session_state.user['userId'])
-        data = fetch_data(f"api/users/2")
+        data = fetch_data(f"api/v1/users/2")
         error = data.get("error", None)
         if error:
             st.error(error)
@@ -91,7 +91,7 @@ with st.container():
 with st.container():
 
     
-    sesiones_activas  = fetch_data(f"api/sessions")
+    sesiones_activas  = fetch_data(f"api/v1/auth/sessions")
     result = sesiones_activas.get("result", [])
     for i, s in enumerate(result):
         

@@ -15,7 +15,7 @@ logging.basicConfig(
 
 
 
-url_base = "http://127.0.0.1:5000"
+url_base = "http://127.0.0.1:5000/api/v1"
 HEADERS = {
     "Content-Type": "application/json",
 }
@@ -73,7 +73,7 @@ def fetch_data(
                 refresh_headers = {
                     "Authorization": f"Bearer {st.session_state.refreshToken}"
                 }
-                refresh_url = f"{url_base}/refresh"
+                refresh_url = f"{url_base}/auth/refresh"
                 refresh_response = r.post(refresh_url, headers=refresh_headers)
                 
                 if refresh_response.status_code in (440, 401): #session expirada por inactividad
@@ -115,7 +115,7 @@ def login(user_name:str, password:str):
         "password": password
     }
     
-    response = fetch_data(endpoint="/login", method="POST", body_params=Credencials)
+    response = fetch_data(endpoint="/auth/login", method="POST", body_params=Credencials)
     data = response.get("result", None)
     
     if data:
