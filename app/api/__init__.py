@@ -21,7 +21,7 @@ HEADERS = {
 }
 
 
-def fetch_data(
+def api_request(
     endpoint, 
     method="GET", 
     params=None, 
@@ -89,7 +89,7 @@ def fetch_data(
                         st.session_state.accessToken = new_data["accessToken"]
 
                         # Reintentar la llamada original una sola vez
-                        return fetch_data(
+                        return api_request(
                             endpoint, method, params, body_params,
                             headers, timeout, is_signIn, retry=True
                         )
@@ -107,27 +107,3 @@ def fetch_data(
 
 
 
-
-def login(user_name:str, password:str):
-    
-    Credencials = {
-        "username": user_name,
-        "password": password
-    }
-    
-    response = fetch_data(endpoint="/auth/login", method="POST", body_params=Credencials)
-    data = response.get("result", None)
-    
-    if data:
-        st.session_state.accessToken = data['accessToken']
-        st.session_state.refreshToken = data['refresh_token']
-        #st.session_state.is_auth = "True"
-        st.session_state.user = data
-        
-        
-    
-    return data
-
-def log_out():
-    
-    return True

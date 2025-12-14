@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from util import i18n
+from utils import i18n
 st.set_page_config(
     page_title="Client Settings",
     layout="wide"

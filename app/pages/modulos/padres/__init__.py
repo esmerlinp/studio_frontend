@@ -1,5 +1,5 @@
 import streamlit as st
-from util import i18n
+from app.utils import i18n
 
 
 def get_pages():
