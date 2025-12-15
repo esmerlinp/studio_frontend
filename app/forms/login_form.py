@@ -7,12 +7,14 @@ def login_form(cookies):
         username = st.text_input(f"{i18n._('login.username')}")
         password = st.text_input(f"{i18n._('login.password')}", type="password")
         submit_button = st.form_submit_button("Login")
+        
         if submit_button:
             data_auth = login(user_name=username, password=password)
             if data_auth:
                 cookies["is_auth"] = str(True)
                 cookies["accessToken"] = data_auth.accessToken
                 cookies["refreshToken"] = data_auth.refresh_token
+                cookies["me"] = str(data_auth.__dict__)
                 cookies.save()
                 st.rerun()
             else:

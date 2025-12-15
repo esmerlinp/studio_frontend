@@ -1,22 +1,16 @@
 import streamlit as st
-from app.utils import i18n
 from streamlit_avatar import avatar
 from app.services.user_service import get_user
+from app.services.auth_service import log_out
 
 # st.set_page_config(
 #     layout="wide"
 # )
 
-# if not 'user' in st.session_state or not st.session_state.user:
-#     with st.spinner():
-#         #data = user_service.get_user_by_id(st.session_state.user['userId'])
-#         user = get_user(user_id=2)
-        
-#         st.session_state.user = user
-
 
 with st.sidebar:
-    st.button("Cerrar sesión", width="stretch")
+    if st.button("Cerrar sesión", width="stretch"):
+        log_out()
 
 
 st.header("Manage Account")
@@ -44,6 +38,7 @@ st.markdown(
 with st.container(border=True, key=key):
     # if st.button("__Theme__", type="tertiary", help=":gray[That's theme pretty]"):
     #     st.switch_page("pages/learn.py")
+    st.write(st.session_state.me)
     if st.session_state.me:
         me = st.session_state.me
         imagen = me.photo

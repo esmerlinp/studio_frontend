@@ -29,3 +29,4 @@ class AuthenticationModel:
     lastLoginDate: Optional[str] = None
     lastPasswordChangeDate: Optional[str] = None
     tokenExpirationDate: Optional[str] = None
+    sessionId: Optional[int] = None

@@ -3,15 +3,20 @@ from app.utils import i18n
 from app.pages.modulos import academico, cafeteria, padres, enfermeria, financiero
 from app.pages import login_page, modules_page
 from st_cookies_manager import EncryptedCookieManager
-import os
+import os, json
 
 # -------------------------------------------------------
 # Configuración de la app
 # -------------------------------------------------------
 st.set_page_config(
-    page_title="stdio",
+    page_title="akadmia",
     page_icon="🚀",
-    layout="centered"
+    layout="centered",
+    # menu_items={
+    #     'Get Help': '/',
+    #     'Report a bug': "https://www.extremelycoolapp.com/bug",
+    #     'About': "# This is a header. This is an *extremely* cool app!"
+    # }
 )
 
 custom_styles = """ 
@@ -20,7 +25,7 @@ custom_styles = """
             padding-top: 0rem;
         }
         div.block-container {
-            padding-top: 1rem; /* Ajusta aquí el margen superior */
+            padding-top: -1rem; /* Ajusta aquí el margen superior */
         }
     </style>
 """
@@ -38,15 +43,15 @@ i18n.setup_gettext(st.session_state.idioma)
 # Inicializar cookies
 # ------------------------------
 cookies = EncryptedCookieManager(
-    prefix=f"camsoft/self-services_AKADMIA",
+    prefix=f"akadmia/app_AKADMIA",
     password=os.environ.get("COOKIES_PASSWORD", "sdius-8uyyhh-tthhn87"),
 )
 
 if not cookies.ready():
     st.stop()
     
-if not 'user' in st.session_state:
-    st.session_state.user = None
+if not 'me' in st.session_state:
+    st.session_state.me = None
     
   
 if not 'update_token' in st.session_state:
@@ -55,9 +60,31 @@ if not 'update_token' in st.session_state:
 if not 'force_login' in st.session_state:
     st.session_state.force_login = False
     
+if not 'force_logout' in st.session_state:
+    st.session_state.force_logout = False
+    
 if "modulo_actual" not in st.session_state:
     st.session_state.modulo_actual = None
+
+if st.session_state.force_logout == True:
+    cookies["is_auth"] = str(False)
+    cookies["accessToken"] = ""
+    cookies["refreshToken"] = ""
+
+    # Limpiar variables de sesión
+    del st.session_state.is_auth
+    del st.session_state.me
+    del st.session_state.accessToken
+    del st.session_state.refreshToken
+    del st.session_state.force_login
+    del st.session_state.force_logout
+    del st.session_state.modulo_actual
     
+    st.rerun()
+    st.stop()
+
+
+        
 if st.session_state.force_login == True:
     @st.dialog("Session Expired", width="small", dismissible=False)
     def inactivity_modal():
@@ -81,10 +108,11 @@ if st.session_state.force_login == True:
 
             # Limpiar variables de sesión
             del st.session_state.is_auth
-            del st.session_state.user
+            del st.session_state.me
             del st.session_state.accessToken
             del st.session_state.refreshToken
             del st.session_state.force_login
+            del st.session_state.force_logout
             del st.session_state.modulo_actual
             
             st.rerun()
@@ -108,6 +136,14 @@ st.session_state.accessToken = cookies.get("accessToken", "")
 st.session_state.refreshToken = cookies.get("refreshToken", "")
 
 
+if (not 'me' in st.session_state or not st.session_state.me) and st.session_state.is_auth:
+    me =  cookies.get("me", None)
+    if me:
+        st.session_state.me = json.loads(me.replace("'", '"'))
+    else:
+        st.session_state.me = None
+    
+    
 # -------------------------------------------------------
 # LÓGICA PRINCIPAL
 # -------------------------------------------------------
@@ -122,7 +158,6 @@ if not st.session_state.is_auth:
     login_page.login_page(cookies=cookies)   
 elif st.session_state.modulo_actual is None:
     modules_page.modules_page()
-
 # Si ya eligió un módulo → cargar su navegación
 else:
     #st.title(f"Módulo: {st.session_state.modulo_actual}")

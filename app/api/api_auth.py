@@ -17,4 +17,20 @@ def authenticate(credentials: dict) -> Optional[AuthenticationModel]:
         return None
 
     return AuthenticationModel(**data)
+
+    
+def close_sesion(sessionId: int) -> Optional[dict]:
+    response = api_request(
+        endpoint=f"/auth/sessions/close/{sessionId}",
+        method="PUT",
+    )
+
+    if not response or response.get("success") is not True:
+        return None
+
+    data = response.get("data", None)
+    if not data:
+        return None
+
+    return data
     

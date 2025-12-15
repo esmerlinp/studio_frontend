@@ -1,9 +1,10 @@
 import streamlit as st
-import requests
-from utils import i18n
+from app.utils import i18n
+
+
 st.set_page_config(
     page_title="Client Settings",
-    layout="wide"
+    layout="centered",
 )
 
 
@@ -53,8 +54,8 @@ def get_client_preferences(client_id):
 # -------------------------------
 #   Selección de Cliente
 # -------------------------------
-st.title("Client Configuration")
-
+st.subheader("Client Configuration")
+st.divider(width="stretch")
 client_id = st.sidebar.selectbox(
     "Select Client",
     options=[10, 20],
@@ -70,13 +71,13 @@ if not prefs:
 # -------------------------------
 #   Formulario estilo GitHub
 # -------------------------------
-with st.form("client_form"):
+with st.container(border=False):
 
     # -------------------------------------------------
     # Security Settings
     # -------------------------------------------------
-    st.subheader(f"{i18n._('form.security_settings.title')}")
-    st.text(f"{i18n._('form.security_settings.description')}")
+    st.markdown(f"##### {i18n._('form.security_settings.title')}")
+    st.markdown(f":gray[{i18n._('form.security_settings.description')}]")
 
     with st.container(horizontal=True):
         with st.container(horizontal=False):
@@ -119,8 +120,8 @@ with st.form("client_form"):
     # -------------------------------------------------
     # Localization
     # -------------------------------------------------
-    st.subheader(f"{i18n._('form.localization.title')}")
-    st.text(f"{i18n._('form.localization.description')}")
+    st.markdown(f"##### {i18n._('form.localization.title')}")
+    st.markdown(f":gray[{i18n._('form.localization.description')}]")
 
     timezone = st.text_input(
         f"{i18n._('form.localization.timezone')}",
@@ -147,27 +148,42 @@ with st.form("client_form"):
     # -------------------------------------------------
     st.subheader(f"{i18n._('form.modules.title')}")
     st.text(f"{i18n._('form.modules.description')}")
-
-    mod_col1, mod_col2, mod_col3 = st.columns(3)
     modules_enabled = prefs["modules_enabled"]
-
-    with mod_col1:
+    with st.popover(f"{i18n._('form.modules.info')}"):
+        
         payroll = st.checkbox(
             f"{i18n._('form.modules.payroll')}",
             value=modules_enabled.get("payroll")
         )
-
-    with mod_col2:
         recruitment = st.checkbox(
             f"{i18n._('form.modules.recruitment')}",
             value=modules_enabled.get("recruitment")
         )
-
-    with mod_col3:
         attendance = st.checkbox(
             f"{i18n._('form.modules.attendance')}",
             value=modules_enabled.get("attendance")
         )
+
+    # mod_col1, mod_col2, mod_col3 = st.columns(3)
+    # modules_enabled = prefs["modules_enabled"]
+
+    # with mod_col1:
+    #     payroll = st.checkbox(
+    #         f"{i18n._('form.modules.payroll')}",
+    #         value=modules_enabled.get("payroll")
+    #     )
+
+    # with mod_col2:
+    #     recruitment = st.checkbox(
+    #         f"{i18n._('form.modules.recruitment')}",
+    #         value=modules_enabled.get("recruitment")
+    #     )
+
+    # with mod_col3:
+    #     attendance = st.checkbox(
+    #         f"{i18n._('form.modules.attendance')}",
+    #         value=modules_enabled.get("attendance")
+    #     )
 
     st.caption(f"{i18n._('form.modules.caption')}")
 
@@ -176,7 +192,7 @@ with st.form("client_form"):
     # -------------------------------------------------
     # Branding
     # -------------------------------------------------
-    st.subheader(f"{i18n._('form.branding.title')}")
+    st.markdown(f"##### {i18n._('form.branding.title')}")
 
     company_logo_url = st.text_input(
         f"{i18n._('form.branding.company_logo_url')}",
@@ -188,7 +204,7 @@ with st.form("client_form"):
     # -------------------------------------------------
     # Submit
     # -------------------------------------------------
-    submit = st.form_submit_button(f"{i18n._('form.submit')}")
+    submit = st.button(f"{i18n._('form.submit')}")
 
 
 

@@ -1,4 +1,4 @@
-from app.api.api_auth import authenticate
+from app.api.api_auth import authenticate, close_sesion
 from app.models.auth_model import AuthenticationModel
 import streamlit as st
 
@@ -27,5 +27,8 @@ def login(user_name: str, password: str) -> Optional[AuthenticationModel]:
 
 
 def log_out():
-    
-    return True
+    sessionId = st.session_state.me.sessionId
+    result = close_sesion(sessionId=sessionId)
+    if result:
+        st.session_state.force_logout = True
+        st.rerun()

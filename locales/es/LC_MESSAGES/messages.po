@@ -63,6 +63,9 @@ msgstr "Acceder a"
 
 
 
+msgid "app.title"
+msgstr "Akadmia"
+
 msgid "app.footer"
 msgstr "Todos los derechos reservados."
 
