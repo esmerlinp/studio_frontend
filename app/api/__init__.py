@@ -36,7 +36,8 @@ def api_request(
     try:
         # Construir headers locales (no modificar HEADERS global)
         request_headers = HEADERS.copy()
-        request_headers["Authorization"] = f"Bearer {st.session_state.accessToken}"
+        if not is_signIn:
+            request_headers["Authorization"] = f"Bearer {st.session_state.accessToken}"
 
         url = f"{url_base}/{endpoint}"
 

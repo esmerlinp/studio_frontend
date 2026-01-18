@@ -6,7 +6,8 @@ def authenticate(credentials: dict) -> Optional[AuthenticationModel]:
     response = api_request(
         endpoint="/auth/login",
         method="POST",
-        body_params=credentials
+        body_params=credentials,
+        is_signIn=True
     )
 
     if not response or response.get("success") is not True:

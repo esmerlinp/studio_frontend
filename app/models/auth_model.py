@@ -4,6 +4,15 @@ from typing import Optional
 
 
 @dataclass
+class Preferences:
+    dateFormat: Optional[str] = None
+    hourFormat: Optional[str] = None
+    language: Optional[str] = None
+    theme: Optional[str] = None
+    timeZone: Optional[str] = None
+    notifications: Optional[dict] = None  # Could be another nested dataclass if needed
+
+@dataclass
 class AuthenticationModel:
     accessToken: Optional[str] = None
     refresh_token: Optional[str] = None
@@ -30,3 +39,10 @@ class AuthenticationModel:
     lastPasswordChangeDate: Optional[str] = None
     tokenExpirationDate: Optional[str] = None
     sessionId: Optional[int] = None
+    
+    rol: Optional[str] = None
+    preferences: Optional[Preferences] = None
+
+    def __post_init__(self):
+        if self.preferences and isinstance(self.preferences, dict):
+            self.preferences = Preferences(**self.preferences)

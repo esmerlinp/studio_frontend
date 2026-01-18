@@ -69,11 +69,11 @@ def login_form(cookies):
                 if data_auth:
                     cookies["is_auth"] = str(True)
                     cookies["accessToken"] = data_auth.accessToken
-                cookies["refreshToken"] = data_auth.refresh_token
-                cookies["me"] = str(data_auth.__dict__)
-                cookies.save()
-                st.rerun()
-            else:
-                st.warning(f"{i18n._('login.error_empty_fields')}")
+                    cookies["refreshToken"] = data_auth.refresh_token
+                    cookies["me"] = str(data_auth.__dict__)
+                    cookies.save()
+                    st.rerun()
+                else:
+                    st.warning(f"{i18n._('login.error_empty_fields')}")
                 st.stop()
             
