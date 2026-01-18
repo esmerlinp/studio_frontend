@@ -11,7 +11,7 @@ import os, json
 st.set_page_config(
     page_title="akadmia",
     page_icon="🚀",
-    layout="centered",
+    layout="wide",
     # menu_items={
     #     'Get Help': '/',
     #     'Report a bug': "https://www.extremelycoolapp.com/bug",

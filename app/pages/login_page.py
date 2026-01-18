@@ -4,5 +4,5 @@ from app.forms.login_form import login_form
 
 
 def login_page(cookies):
-    st.title("Inicio de Sesión")
+    # st.title("Inicio de Sesión") # Removed in favor of card header
     login_form(cookies)

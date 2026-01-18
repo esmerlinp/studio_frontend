@@ -15,7 +15,7 @@ logging.basicConfig(
 
 
 
-url_base = "http://127.0.0.1:5000/api/v1"
+url_base = "https://flask-service-999505570378.us-central1.run.app/api/v1"
 HEADERS = {
     "Content-Type": "application/json",
 }
